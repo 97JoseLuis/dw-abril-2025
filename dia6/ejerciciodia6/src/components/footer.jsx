@@ -1,3 +1,0 @@
-function footer ({msg}){
-    return
-}
