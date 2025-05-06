@@ -1,26 +1,17 @@
-function frutas ({frutas}) {
-        
-    const frutas = ["fresa","sandia","melon"];
+import React from 'react';
 
-    const frutas = () => (
-        <ul>
-            {frutas.map((frutas, index) => (
-                <li key = {index}>{frutas}</li>
-            ))}
-
-        </ul>
-    )
-    const totalFrutas = frutas.length;
-
+const ListaFrutas = ({ frutas }) => {
   return (
-    <>
     <div>
-      <p>Hay {totalFrutas} frutas en la lista.</p>
+      <h2>Lista de Frutas</h2>
+      <p>Hay {frutas.length} frutas en la lista.</p>
+      <ul>
+        {frutas.map((fruta, index) => (
+          <li key={index}>{fruta}</li>
+        ))}
+      </ul>
     </div>
-    </>
   );
-    
+};
 
-}
-
-export default frutas
+export default ListaFrutas;
