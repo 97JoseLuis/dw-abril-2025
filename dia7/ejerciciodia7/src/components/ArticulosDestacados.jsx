@@ -1,30 +1,40 @@
+import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 const ArticulosDestacados = ({ articulos }) => {
+  const [contadorDestacados, setContadorDestacados] = useState(0);
 
-    const articulos = [
-        { titulo: "Funda", descripcion: "Movil", destacado: true },
-        { titulo: "Cargador", descripcion: "Pintar", destacado: false },
-        { titulo: "Destornillador", descripcion: "atornillar", destacado: true },
-      ];
+  useEffect(() => {
+    const destacados = articulos.filter((articulo) => articulo.destacado);
+    setContadorDestacados(destacados.length);
+  }, [articulos]);
 
-    const articulosDestacados = articulos.filter(articulo => articulo.destacado);
-  
-    return (
-      <div>
-        <h2>Artículos Destacados</h2>
-        {articulosDestacados.length === 0 ? (
-          <p>No hay artículos destacados en este momento.</p>
-        ) : (
-          <ul>
-            {articulosDestacados.map((articulo, index) => (
-              <li key={index}>
-                <h3>{articulo.titulo}</h3>
-                <p>{articulo.descripcion}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    );
-  };
-  
-  export default ArticulosDestacados;
+  return (
+    <div>
+      <h2>Artículos Destacados ({contadorDestacados})</h2>
+      <ul>
+        {articulos
+          .filter((articulo) => articulo.destacado)
+          .map((articulo) => (
+            <li key={articulo.id}>{articulo.titulo}</li>
+          ))}
+      </ul>
+    </div>
+  );
+};
+
+const App = () => {
+  const articulos = [
+    { id: 1, titulo: "Boligrafo", destacado: true },
+    { id: 2, titulo: "Goma", destacado: false },
+    { id: 3, titulo: "Lapiz", destacado: true },
+  ];
+
+  return (
+    <div>
+      <ArticulosDestacados articulos={articulos} />
+    </div>
+  );
+};
+
+export default App;
