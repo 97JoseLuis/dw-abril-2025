@@ -3,7 +3,7 @@ function Header({name}) {
         <h1>{name}</h1>;
         <nav>
             <ul>
-                {menu.map((item, index))} => (
+                {menu.map((item, index))} = (
             </ul>
         </nav>
          )   

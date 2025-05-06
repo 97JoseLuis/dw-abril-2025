@@ -2,7 +2,7 @@ function frutas ({frutas}) {
         
     const frutas = ["fresa","sandia","melon"];
 
-    const ListaFrutas = () => (
+    const frutas = () => (
         <ul>
             {frutas.map((frutas, index) => (
                 <li key = {index}>{frutas}</li>
