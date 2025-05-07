@@ -1,6 +1,7 @@
-function frutas ({frutas}) {
-        
-    const frutas = ["Manzana", "Banana", "Cereza", "Durazno", "Fresa"];
+import React from "react";
+
+function ListaFrutas ({frutas}) {
+        const frutas = ["Manzana", "Banana", "Cereza", "Durazno", "Fresa"];
 
     const frutas = () => (
         <ul>
@@ -11,3 +12,5 @@ function frutas ({frutas}) {
         </ul>
     )
 }
+
+export default ListaFrutas;
