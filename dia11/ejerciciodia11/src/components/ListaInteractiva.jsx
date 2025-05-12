@@ -1,43 +1,41 @@
 import React, { useState } from "react";
 
-function ListaInteractiva () {
-const elementosIniciales = [
-    {id: 1, texto: "Activo", activo: true}
-    {id: 2, texto: "Activo", activo: true}
-    {id: 3, texto: "Activo", activo: true}
+const initialItems = [
+    { id: 1, text: "Elemento 1", altText: "¡Clickeado 1!", color: "black", altColor: "red" },
+    { id: 2, text: "Elemento 2", altText: "¡Clickeado 2!", color: "black", altColor: "blue" },
+    { id: 3, text: "Elemento 3", altText: "¡Clickeado 3!", color: "black", altColor: "green" },
 ];
 
-const [items, setItems] = useState (elementosIniciales);
+function ListaInteractiva() {
+    const [items, setItems] = useState(
+        initialItems.map(item => ({ ...item, toggled: false }))
+    );
 
-const manejarClick = (id) => {
-    setItems(prevItems => prevItems.map ( item => item.id === id?
-        {
-            ...item, 
-            activo: !item.activo,
-            texto: item.activo ? "Inactivo" : "Activo",
+    const handleClick = (id) => {
+        setItems(items =>
+            items.map(item =>
+                item.id === id ? { ...item, toggled: !item.toggled } : item
+            )
+        );
+    };
 
-        }
-        :item
-     ))
+    return (
+        <ul>
+            {items.map(item => (
+                <li
+                    key={item.id}
+                    onClick={() => handleClick(item.id)}
+                    style={{
+                        cursor: "pointer",
+                        color: item.toggled ? item.altColor : item.color,
+                        userSelect: "none"
+                    }}
+                >
+                    {item.toggled ? item.altText : item.text}
+                </li>
+            ))}
+        </ul>
+    );
 }
-}
 
-return (
-    <ul style={{ listStyle: "none", padding: 0}}>
-    {items.map(item => ( 
-        <li key={item.id} onClick={() => manejarClick(item.id)}
-        style={{
-            margin: "10px",
-            padding: "10px",
-            backgroundColor: item.activo ? "green" : "red",
-            color: "white",
-            cursor: "pointer",
-            width: "100px",
-            textAlign: "center"
-        }}
-        >
-            {item.texto}
-        </li>
-    ))}
-     </ul>
-  );
+export default ListaInteractiva;
