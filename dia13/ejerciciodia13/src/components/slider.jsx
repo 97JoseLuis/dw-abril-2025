@@ -21,6 +21,9 @@ const CustomSlider = () => {
     };
 
     useEffect (() => {
+
+        const AutoPlay = () => {}
+
         const interval = setInterval(nextSlide, 3000);
         return () => clearInterval(interval);
     }, []);
