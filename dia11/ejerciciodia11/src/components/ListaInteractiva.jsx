@@ -7,10 +7,10 @@ const elementosIniciales = [
     {id: 3, texto: "Activo", activo: true}
 ];
 
-const [items, setItems] = useState (elementosIniciales);
+const [item, setItem] = useState (elementosIniciales);
 
 const manejarClick = (id) => {
-    setItems(prevItems => prevItems.map ( item => item.id === id?
+    setItem(prevItem => prevItem.map (item => item.id === id?
         {
             ...item, 
             activo: !item.activo,
