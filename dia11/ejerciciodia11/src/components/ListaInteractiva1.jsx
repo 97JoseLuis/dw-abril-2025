@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 
 const ListaInteractiva = () => {
-  // Definimos un array inicial de elementos con texto y color
+
   const initialItems = [
     { id: 1, texto: 'Elemento 1', color: 'black' },
     { id: 2, texto: 'Elemento 2', color: 'black' },
     { id: 3, texto: 'Elemento 3', color: 'black' },
   ];
 
-  // Usamos useState para gestionar la lista de elementos
   const [items, setItems] = useState(initialItems);
 
-  // Función para cambiar el texto y color del elemento clickeado
   const handleClick = (id) => {
     setItems(prevItems =>
       prevItems.map(item =>
@@ -19,7 +17,7 @@ const ListaInteractiva = () => {
           ? {
               ...item,
               texto: '¡Clickeado!',
-              color: item.color === 'black' ? 'blue' : 'black', // Alterna entre negro y azul
+              color: item.color === 'black' ? 'blue' : 'black', 
             }
           : item
       )
@@ -42,4 +40,3 @@ const ListaInteractiva = () => {
 };
 
 export default ListaInteractiva;
-
