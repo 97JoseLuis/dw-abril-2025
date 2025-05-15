@@ -3,14 +3,14 @@
 import { useState, useEffect } from "react";
 
 const images = [
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Cane_da_pastore_tedesco_adulto.jpg/640px-Cane_da_pastore_tedesco_adulto.jpg",
-  "https://www.automoli.com/common/vehicles/_assets/img/gallery/f109/opel-astra-k.jpg",
-  "https://images.samsung.com/is/image/samsung/assets/global/about-us/brand/logo/mo/360_197_1.png?$720_N_PNG$",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcR5U16C8yXgBpl7-Bc7Itjx3_LRl425zINA&s",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc4XOdTwDFjrNDoRbCH2vDqCNCKD9u8zVr_g&s"
+  "https://www.dismoer.com/6539-home_default/revell-maqueta-coche-mclaren-570s-1-24.jpg",
+  "https://files.idyllic.app/files/static/2435232?width=256&optimizer=image",
+  "https://images.stockcake.com/public/a/b/1/ab13e6d6-1db0-41c5-8724-835ec2267b28_medium/elegant-blue-mercedes-stockcake.jpg",
+  "https://files.idyllic.app/files/static/2251720?width=256&optimizer=image",
+  "https://files.idyllic.app/files/static/1928522?width=256&optimizer=image"
 ];
 
-export default function Carrousel({ visibleSlides = 3 }) {
+export default function Carousel({ visibleSlides = 3 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
 

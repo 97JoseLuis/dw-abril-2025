@@ -3,9 +3,9 @@
 import { useState, useEffect, useRef } from "react";
 
 const images = [
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Cane_da_pastore_tedesco_adulto.jpg/640px-Cane_da_pastore_tedesco_adulto.jpg",
-  "https://www.automoli.com/common/vehicles/_assets/img/gallery/f109/opel-astra-k.jpg",
-  "https://images.samsung.com/is/image/samsung/assets/global/about-us/brand/logo/mo/360_197_1.png?$720_N_PNG$"
+  "https://www.dismoer.com/6539-home_default/revell-maqueta-coche-mclaren-570s-1-24.jpg",  
+  "https://files.idyllic.app/files/static/2435232?width=256&optimizer=image",
+  "https://images.stockcake.com/public/a/b/1/ab13e6d6-1db0-41c5-8724-835ec2267b28_medium/elegant-blue-mercedes-stockcake.jpg"
 ];
 
 const CustomSlider = () => {
