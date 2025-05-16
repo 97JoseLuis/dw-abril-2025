@@ -11,12 +11,12 @@ const baseButtonStyle = {
 };
 
 const dangerButtonStyle = {
-    ...baseButtonStyle,
+    baseButtonStyle,
     background: '#dc3545',
 };
 
 const successButtonStyle = {
-    ...baseButtonStyle,
+    baseButtonStyle,
     background: '#28a745',
 };
 

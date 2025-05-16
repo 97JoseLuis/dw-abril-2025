@@ -1,129 +1,42 @@
-.relative {
-  position: relative;
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-.w-full {
-  width: 100%;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-.max-w-3xl {
-  max-width: 40rem;
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.max-auto {
-  margin-left: auto;
-  margin-right: auto;
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
 }
 
-.overflow-hidden {
-  overflow: hidden;
+.card {
+  padding: 2em;
 }
 
-.rounded-xl {
-  border-radius: 0.75rem;
-}
-
-.shadow-lg {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-.flex {
-  display: flex;
-}
-
-.transition-transform {
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 500ms;
-}
-
-.duration-500 {
-  transition-duration: 500ms;
-}
-
-.ease-in-out {
-  transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.cursor-grab {
-  cursor: grab;
-}
-
-.absolute {
-  position: absolute;
-}
-
-.left-4 {
-  left: 1rem;
-}
-
-.top-1\/2 {
-  top: 50%;
-}
-
-.transform {
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) 
-    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.-translate-y-1\/2 {
-  transform: translateY(-50%);
-}
-
-.bg-gray-800\/50 {
-  background-color: rgba(31, 41, 55, 0.5);
-}
-
-.text-white {
-  color: #fff;
-}
-
-.p-2 {
-  padding: 0.5rem;
-}
-
-.rounded-full {
-  border-radius: 9999px;
-}
-
-.opacity-50 {
-  opacity: 0.5;
-}
-
-.cursor-not-allowed {
-  cursor: not-allowed;
-}
-
-.bottom-4 {
-  bottom: 1rem;
-}
-
-.-translate-x-1\/2 {
-  transform: translateX(-50%);
-}
-
-.-space-x-2 >* + * {
-  margin-left: 0.5rem;
-}
-
-.w-3{
-  width: 0.75rem;
-}
-
-.h-3{
-  height: 0.75rem;
-}
-
-.rounded-full{
-  border-radius: 9999px;
-}
-
-.bg-white{
-  background-color: #fff;
-}
-
-.bg-gray-400{
-  background-color: #cbd5e0;
+.read-the-docs {
+  color: #888;
 }
