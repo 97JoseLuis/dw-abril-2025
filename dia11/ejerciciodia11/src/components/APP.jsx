@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const getStyles = (isDark, isAnimated, animate) => ({
     minHeight: "100vh",

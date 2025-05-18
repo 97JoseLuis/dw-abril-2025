@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function ListaInteractiva3() {
     const [items, setItems] = useState([]);
