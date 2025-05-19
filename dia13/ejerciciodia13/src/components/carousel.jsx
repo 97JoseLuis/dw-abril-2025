@@ -21,7 +21,7 @@ export default function Carousel({ visibleSlides = 3 }) {
   useEffect(() => {
     if (isPlaying) {
       const interval = setInterval(() => {
-        setCurrentIndex(prev => (prev +1) % images.length);
+      setCurrentIndex(prev => (prev +1) % images.length);
       },3000);
       return ()=>clearInterval(interval);
     }

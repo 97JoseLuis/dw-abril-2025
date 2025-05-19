@@ -4,7 +4,7 @@ import Menu from './components/menu'
 import Carousel from './components/carousel'
 import Slider from './components/slider'
 import Slidert from './components/slidert'
-import  Menut from './components/menut'
+import  MyMenu from './components/menut'
 import CarouselComponent from './components/carouseld'
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
       <Menu />
       <Carousel />
       <Slider />
-      <Menut />
+      <MyMenu />
       <CarouselComponent />
       <Slidert />
     </>

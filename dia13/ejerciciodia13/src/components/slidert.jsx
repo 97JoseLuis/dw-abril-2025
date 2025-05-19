@@ -29,9 +29,6 @@ const Slider = () => {
       <SwiperSlide>
         <img src="https://images.stockcake.com/public/a/b/1/ab13e6d6-1db0-41c5-8724-835ec2267b28_medium/elegant-blue-mercedes-stockcake.jpg" alt="Slide 3" />
       </SwiperSlide>
-      <SwiperSlide>
-        <img src="https://www.dismoer.com/6539-home_default/revell-maqueta-coche-mclaren-570s-1-24.jpg" alt="Slide 4" />
-      </SwiperSlide> 
     </Swiper>
   );
 };
