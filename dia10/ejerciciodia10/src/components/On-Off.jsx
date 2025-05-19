@@ -1,21 +1,13 @@
 import React, { useState } from "react";
 
-const BotonEncendidoApagado = () => {
-    const [estado, setEstado] = useState (false);
+function AlternarBoton() {
+    const [isOn, setIsOn] = useState(false);
 
-    const alternarEstado = () => {
-        setEstado (!estado);
-    }
-
-return (
-    <div>
-        <button onClick={(alternarEstado)}>
-            (estado ? "Apagar" : "Encender")
+    return (
+        <button onClick={() => setIsOn(!isOn)}>
+            {isOn ? "Encendido" : "Apagado"}
         </button>
-        <p>Estado :(estado ? "Encendido" : "Apagado")</p>
-    </div>
-);
-
+    );
 }
 
-export default BotonEncendidoApagado;
+export default AlternarBoton;

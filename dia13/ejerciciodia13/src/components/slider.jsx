@@ -8,7 +8,7 @@ const images = [
   "https://images.stockcake.com/public/a/b/1/ab13e6d6-1db0-41c5-8724-835ec2267b28_medium/elegant-blue-mercedes-stockcake.jpg"
 ];
 
-const CustomSlider = () => {
+const Slider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const intervalRef = useRef(null);
@@ -27,7 +27,7 @@ const CustomSlider = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
-    setIsPlaying(false); 
+    setIsPlaying(true); 
   };
 
   useEffect(() => {
@@ -90,7 +90,7 @@ const CustomSlider = () => {
       <button
         onClick={prevSlide}
         disabled={currentIndex === 0} 
-        className={`absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800/50 text-white p-2 rounded-full ${
+        className={`absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800/50 text-white p-2 rounded-full button-container ${
           currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''
         }`}
         aria-label="Anterior"
@@ -125,4 +125,4 @@ const CustomSlider = () => {
   );
 };
 
-export default CustomSlider;
+export default Slider;

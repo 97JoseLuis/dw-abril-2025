@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function BotonCuadrado() {
   const [encendido, setEncendido] = useState(true);

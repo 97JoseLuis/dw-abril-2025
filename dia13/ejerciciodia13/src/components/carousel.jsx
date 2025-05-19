@@ -7,7 +7,6 @@ const images = [
   "https://files.idyllic.app/files/static/2435232?width=256&optimizer=image",
   "https://images.stockcake.com/public/a/b/1/ab13e6d6-1db0-41c5-8724-835ec2267b28_medium/elegant-blue-mercedes-stockcake.jpg",
   "https://files.idyllic.app/files/static/2251720?width=256&optimizer=image",
-  "https://files.idyllic.app/files/static/1928522?width=256&optimizer=image"
 ];
 
 export default function Carousel({ visibleSlides = 3 }) {

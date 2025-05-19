@@ -23,7 +23,7 @@ function Menu() {
                     <li
                         key={index}
                         style={{
-                            position: "relative",
+                            position: "center",
                             margin: 0,
                             padding: 0
                         }}

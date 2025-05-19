@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import './App.css'
 import Menu from './components/menu'
-import Carrousel from './components/carousel'
+import Carousel from './components/carousel'
 import Slider from './components/slider'
 import Slidert from './components/slidert'
+import  Menut from './components/menut'
+import CarouselComponent from './components/carouseld'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -11,8 +13,10 @@ function App() {
   return (
     <>
       <Menu />
-      <Carrousel />
+      <Carousel />
       <Slider />
+      <Menut />
+      <CarouselComponent />
       <Slidert />
     </>
   )

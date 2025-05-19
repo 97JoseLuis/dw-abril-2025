@@ -1,23 +1,19 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
-const CampoTexto = () => {
-    const [texto, setTexto] = useState("");
-
-    const manejarCambio = (e) => {
-        setTexto(e.targer.value);
-    };
+function TextInput() {
+    const [text, setText] = useState("");
 
     return (
         <div>
-            <input
-            type="text"
-            value={texto}
-            onChange={manejarCambio}
-            placeholder="Escribe Algo"
+            <input 
+                type="text" 
+                value={text} 
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Escribe algo..."
             />
-            <p>Texto ingresado: {texto}</p>
+            <p>Texto ingresado: {text}</p>
         </div>
     );
-};
+}
 
-export default CampoTexto;
+export default TextInput;
