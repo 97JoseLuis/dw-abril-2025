@@ -5,7 +5,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 
-const Slider = () => {
+const Slidert = () => {
   return (
     <Swiper
       modules={[Navigation, Pagination, Autoplay]}
@@ -33,4 +33,4 @@ const Slider = () => {
   );
 };
 
-export default Slider;
+export default Slidert;

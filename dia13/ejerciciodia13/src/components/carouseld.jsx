@@ -24,7 +24,7 @@ const images = [
   'https://files.idyllic.app/files/static/2251720?width=256&optimizer=image',
 ];
 
-const CarouselComponent = () => {
+const Carousel = () => {
   return (
     <Carousel
       responsive={responsive}
@@ -47,4 +47,4 @@ const CarouselComponent = () => {
   );
 };
 
-export default CarouselComponent;
+export default Carousel;
