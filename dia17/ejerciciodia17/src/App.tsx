@@ -4,9 +4,10 @@ import ContadorIncremento from './components/ContadorIncremento'
 import ValorPrevio from './components/ValorPrevio'
 import Temporizador from './components/Temporizador'
 import ScrollAlFinal from './components/ScrollAlFinal'
+import ChatEnVivo from './components/ChatEnVivo'
+import ListaMensajeChat from './components/ListaMensajeChat'
 
 function App() {
-
 
   return (
     <>
@@ -15,6 +16,8 @@ function App() {
       <ValorPrevio />
       <Temporizador />
       <ScrollAlFinal />
+      <ChatEnVivo />
+      <ListaMensajeChat />
     </>
   )
 }
