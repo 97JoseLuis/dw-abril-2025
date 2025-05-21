@@ -1,7 +1,7 @@
 import React from 'react';
-import Producto from './Producto';
 
-function App() {
+
+function Productos() {
   const productos = [
     { nombre: 'Manzana', precio: 1.2 },
     { nombre: 'Banana', precio: 0.5 },
@@ -14,11 +14,11 @@ function App() {
       <h1>Lista de Productos</h1>
       <ul>
         {productos.map((prod, index) => (
-          <Producto key={index} nombre={prod.nombre} precio={prod.precio} />
+          <Productos key={index} nombre={prod.nombre} precio={prod.precio} />
         ))}
       </ul>
     </div>
   );
 }
 
-export default App;
+export default Productos;
