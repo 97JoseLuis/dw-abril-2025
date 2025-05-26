@@ -2,9 +2,9 @@ import React from 'react';
 
 const alertaStyle = {
     padding: '16px',
-    backgroundColor: '#fdecea',
-    color: '#611a15',
-    border: '1px solid #f5c6cb',
+    backgroundColor: '#ffe0b2',
+    color: '#663c00',
+    border: '1px solid #ffb74d',
     borderRadius: '4px',
     margin: '16px 0',
     fontSize: '16px',

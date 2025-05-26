@@ -8,6 +8,7 @@ import Suma from "./components/Suma";
 import ListadeTareas from "./components/ListadeTareas";
 import UsuarioCard from "./components/UsuarioCard";
 import BotonCambio from "./components/Migracion";
+import ListaUsuarios from "./components/ListaUsuarios";
 
 interface Usuario {
   nombre: string;
@@ -26,7 +27,8 @@ const App: React.FC = () => {
       <Suma />
       <ListadeTareas />
       <UsuarioCard usuario={usuarioEjemplo} />
-      <BotonCambio />git
+      <BotonCambio />
+      <ListaUsuarios usuarios={[]} />
       
     </div>
   );
