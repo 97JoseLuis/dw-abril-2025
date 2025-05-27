@@ -1,6 +1,99 @@
 import { useContext, useState, useEffect } from "react";
 import { TaskContext } from "../Context/TaskContext";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+// Contenedor principal
+const Container = styled.div`
+  padding: 25px;
+    
+`;
+
+// Título de la página
+const Title = styled.h1`
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  font-family: Arial, sans-serif;
+`;
+
+// Enlace para crear una nueva tarea
+const NewTaskLink = styled(Link)`
+  font-family: Arial, sans-serif;
+  color: #3b82f6;
+  font-size: 25px;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+// Contenedor para los botones de filtro
+const FilterContainer = styled.div`
+  margin-top: 1rem;
+  text-align: center;
+`;
+
+// Botón de filtro con estilos dinámicos según la variante
+const FilterButton = styled.button`
+  font-size: 16px;
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: ${(props) => {
+    if (props.variant === "all") return "#d1d5db";
+    if (props.variant === "completed") return "#4ade80";
+    if (props.variant === "pending") return "#f87171";
+    return "#d1d5db";
+  }};
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+// Lista de tareas
+const TaskList = styled.ul`
+  margin-top: 1rem;
+`;
+
+// Cada elemento de tarea
+const TaskItem = styled.li`
+  padding: 0.5rem;
+  border-bottom: 1px solid #e5e7eb; /* Gray claro */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+// Enlace que muestra el título de la tarea
+const TaskLink = styled(Link)`
+  font-size: 20px; 
+  font-family: Arial, sans-serif;
+  text-decoration: none;
+  color: inherit;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+// Botones de acción: alternar completitud y eliminar
+const ActionButton = styled.button`
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  margin-right: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background: ${(props) =>
+    props.variant === "toggle" ? "#facc15" : props.variant === "delete" ? "#ef4444" : "#facc15"};
+  color: ${(props) => (props.variant === "delete" ? "#fff" : "#000")};
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.85;
+  }
+`;
 
 const Home = () => {
   const { tasks, removeTask, toggleTaskCompletion } = useContext(TaskContext);
@@ -18,29 +111,38 @@ const Home = () => {
   }, [tasks, filter]);
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">Lista de Tareas</h1>
-      <Link to="/new-task" className="text-blue-500">Crear nueva tarea</Link>
+    <Container>
+      <Title>Lista de Tareas</Title>
+      <NewTaskLink to="/new-task">Crear nueva tarea</NewTaskLink>
 
-      <div className="mt-4">
-        <button onClick={() => setFilter("all")} className="mr-2 px-4 py-2 bg-gray-300">Todas</button>
-        <button onClick={() => setFilter("completed")} className="mr-2 px-4 py-2 bg-green-400">Completadas</button>
-        <button onClick={() => setFilter("pending")} className="px-4 py-2 bg-red-400">Pendientes</button>
-      </div>
-      <ul className="mt-4">
+      <FilterContainer>
+        <FilterButton onClick={() => setFilter("all")} variant="all">
+          Todas
+        </FilterButton>
+        <FilterButton onClick={() => setFilter("completed")} variant="completed">
+          Completadas
+        </FilterButton>
+        <FilterButton onClick={() => setFilter("pending")} variant="pending">
+          Pendientes
+        </FilterButton>
+      </FilterContainer>
+
+      <TaskList>
         {localTasks.map((task) => (
-          <li key={task.id} className="p-2 border-b flex justify-between">
-            <Link to={`/task/${task.id}`} className="text-lg">{task.title}</Link>
+          <TaskItem key={task.id}>
+            <TaskLink to={`/task/${task.id}`}>{task.title}</TaskLink>
             <div>
-              <button onClick={() => toggleTaskCompletion(task.id)} className="mr-2 px-2 py-1 bg-yellow-400">
+              <ActionButton onClick={() => toggleTaskCompletion(task.id)} variant="toggle">
                 {task.completed ? "Desmarcar" : "Completar"}
-              </button>
-              <button onClick={() => removeTask(task.id)} className="px-2 py-1 bg-red-500 text-white">Eliminar</button>
+              </ActionButton>
+              <ActionButton onClick={() => removeTask(task.id)} variant="delete">
+                Eliminar
+              </ActionButton>
             </div>
-          </li>
+          </TaskItem>
         ))}
-      </ul>
-    </div>
+      </TaskList>
+    </Container>
   );
 };
 
