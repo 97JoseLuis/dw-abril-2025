@@ -5,7 +5,7 @@ import { join } from 'path';
 const app = express();
 const PORT = 3000;
 
-app.delete('/borrar', (req, res) => {
+app.delete('/borrar', (_req, res) => {
     const filePath = join(__dirname, 'datos.txt');
 
     unlink(filePath, (err) => {

@@ -1,6 +1,6 @@
 import { writeFile } from 'fs';
 
-const contenido = 'Hola, este es un mensaje guardado en un archivo de texto.';
+const contenido = 'Hola Mundo!';
 const nombreArchivo = 'mensaje.txt';
 
 writeFile(nombreArchivo, contenido, (err) => {
