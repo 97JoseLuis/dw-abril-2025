@@ -1,20 +1,20 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const csv = require('csv-parser');
-const { parse } = require('json2csv');
+import express, { json } from 'express';
+import { existsSync, createReadStream, writeFileSync } from 'fs';
+import { join } from 'path';
+import csv from 'csv-parser';
+import { parse } from 'json2csv';
 
 const app = express();
-app.use(express.json());
+app.use(json());
 
-const CSV_FILE = path.join(__dirname, 'persons.csv');
+const CSV_FILE = join(__dirname, 'persons.csv');
 const FIELDS = ['Id', 'Name', 'Surname', 'IsTeacher', 'Birthdate'];
 
 function readPersons() {
     return new Promise((resolve, reject) => {
         const results = [];
-        if (!fs.existsSync(CSV_FILE)) return resolve([]);
-        fs.createReadStream(CSV_FILE)
+        if (!existsSync(CSV_FILE)) return resolve([]);
+        createReadStream(CSV_FILE)
             .pipe(csv())
             .on('data', (data) => results.push(data))
             .on('end', () => resolve(results))
@@ -24,7 +24,7 @@ function readPersons() {
 
 function writePersons(persons) {
     const csvData = parse(persons, { fields: FIELDS });
-    fs.writeFileSync(CSV_FILE, csvData, 'utf8');
+    writeFileSync(CSV_FILE, csvData, 'utf8');
 }
 
 app.get('/persons', async (req, res) => {
