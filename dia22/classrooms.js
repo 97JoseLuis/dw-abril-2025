@@ -1,94 +1,80 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const csv = require('csv-parser');
-const { v4: uuidv4 } = require('uuid');
+import express from "express";
+import { createReadStream, writeFile } from "fs";
+import csv from "csv-parser";
+import { v4 as uuidv4 } from "uuid";
 
 const app = express();
 const PORT = 3000;
-const CSV_FILE = path.join(__dirname, 'classrooms.csv');
+const CSV_FILE = "classrooms.csv";
 
 app.use(express.json());
 
-function readClassrooms() {
-    return new Promise((resolve, reject) => {
-        const results = [];
-        if (!fs.existsSync(CSV_FILE)) return resolve([]);
-        fs.createReadStream(CSV_FILE)
-            .pipe(csv())
-            .on('data', (data) => {
-                data.Students = data.Students ? JSON.parse(data.Students) : [];
-                resolve.push(data);
-            })
-            .on('end', () => resolve(results))
-            .on('error', reject);
+const readCSV = (callback) => {
+    const results = [];
+    createReadStream(CSV_FILE)
+        .pipe(csv())
+        .on("data", (data) => results.push(data))
+        .on("end", () => callback(results));
+};
+
+const writeCSV = (data, callback) => {
+    const headers = "Id,Name,Teacher_id,Students\n";
+    const rows = data.map(classroom => 
+        `${classroom.Id},${classroom.Name},${classroom.Teacher_id},"${classroom.Students}"`
+    ).join("\n");
+    writeFile(CSV_FILE, headers + rows, callback);
+};
+
+app.post("/classrooms", (req, res) => {
+    readCSV((classrooms) => {
+        const newClassroom = {
+            Id: uuidv4(),
+            Name: req.body.Name,
+            Teacher_id: req.body.Teacher_id,
+            Students: req.body.Students.join(","),
+        };
+        classrooms.push(newClassroom);
+        writeCSV(classrooms, () => res.status(201).json(newClassroom));
     });
-}
+});
 
-function writeClassrooms(classrooms) {
-    return new Promise((resolve, reject) => {
-        const header = 'Id,Name,Teacher_id,Students\n';
-        const rows = classrooms.map(c =>
-            `${c.Id},${c.Name},${c.Teacher_id},"${JSON.stringify(c.Students)}"`
-        );
-        fs.writeFile(CSV_FILE, header + rows.join('\n'), err => {
-            if (err) reject(err);
-            else resolve();
-        });
+app.get("/classrooms", (_req, res) => {
+    readCSV((classrooms) => res.json(classrooms));
+});
+
+app.get("/classrooms/:id", (req, res) => {
+    readCSV((classrooms) => {
+        const classroom = classrooms.find(c => c.Id === req.params.id);
+        classroom ? res.json(classroom) : res.status(404).send("Classroom not found");
     });
-}
-
-app.post('/classrooms', async (req, res) => {
-    const { Name, Teacher_id, Students } = req.body;
-    if (!Name || !Teacher_id || !Array.isArray(Students)) {
-        return res.status(400).json({ error: 'Invalid data' });
-    }
-    const classrooms = await readClassrooms();
-    const newClassroom = {
-        Id: uuidv4(),
-        Name,
-        Teacher_id,
-        Students
-    };
-    classrooms.push(newClassroom);
-    await writeClassrooms(classrooms);
-    res.status(201).json(newClassroom);
 });
 
-app.get('/classrooms', async (_req, res) => {
-    const classrooms = await readClassrooms();
-    res.json(classrooms);
+app.put("/classrooms/:id", (req, res) => {
+    readCSV((classrooms) => {
+        const index = classrooms.findIndex(c => c.Id === req.params.id);
+        if (index !== -1) {
+            classrooms[index] = {
+                Id: req.params.id,
+                Name: req.body.Name,
+                Teacher_id: req.body.Teacher_id,
+                Students: req.body.Students.join(","),
+            };
+            writeCSV(classrooms, () => res.json(classrooms[index]));
+        } else {
+            res.status(404).send("Classroom not found");
+        }
+    });
 });
 
-app.get('/classrooms/:id', async (req, res) => {
-    const classrooms = await readClassrooms();
-    const classroom = classrooms.find(c => c.Id === req.params.id);
-    if (!classroom) return res.status(404).json({ error: 'Not found' });
-    res.json(classroom);
+app.delete("/classrooms/:id", (req, res) => {
+    readCSV((classrooms) => {
+        const filteredClassrooms = classrooms.filter(c => c.Id !== req.params.id);
+        if (filteredClassrooms.length < classrooms.length) {
+            writeCSV(filteredClassrooms, () => res.status(204).send());
+        } else {
+            res.status(404).send("Classroom not found");
+        }
+    });
 });
 
-
-app.put('/classrooms/:id', async (req, res) => {
-    const { Name, Teacher_id, Students } = req.body;
-    const classrooms = await readClassrooms();
-    const idx = classrooms.findIndex(c => c.Id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Not found' });
-    if (Name) classrooms[idx].Name = Name;
-    if (Teacher_id) classrooms[idx].Teacher_id = Teacher_id;
-    if (Students) classrooms[idx].Students = Students;
-    await writeClassrooms(classrooms);
-    res.json(classrooms[idx]);
-});
-
-app.delete('/classrooms/:id', async (req, res) => {
-    const classrooms = await readClassrooms();
-    const idx = classrooms.findIndex(c => c.Id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Not found' });
-    const deleted = classrooms.splice(idx, 1)[0];
-    await writeClassrooms(classrooms);
-    res.json(deleted);
-});
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
