@@ -3,14 +3,12 @@ import { useContext } from "react";
 import { TaskContext } from "../Context/TaskContext";
 import styled from "styled-components";
 
-// Contenedor principal centrado y con padding
 const Container = styled.div`
   padding: 2rem;
   max-width: 600px;
   margin: 0 auto;
 `;
 
-// Título principal
 const Title = styled.h1`
   font-family: Arial, sans-serif;
   font-size: 2rem;
@@ -18,14 +16,12 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-// Descripción de la tarea
 const Description = styled.p`
   font-size: 35px;
   font-family: Arial, sans-serif;
   margin-bottom: 1rem;
 `;
 
-// Estado de la tarea, con color dinámico según si está completada o no
 const Status = styled.p`
   font-family: Arial, sans-serif;
   font-size: 30px;

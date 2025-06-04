@@ -3,13 +3,11 @@ import { TaskContext } from "../Context/TaskContext";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-// Contenedor principal
 const Container = styled.div`
   padding: 25px;
     
 `;
 
-// Título de la página
 const Title = styled.h1`
   font-size: 50px;
   font-weight: bold;
@@ -17,7 +15,6 @@ const Title = styled.h1`
   font-family: Arial, sans-serif;
 `;
 
-// Enlace para crear una nueva tarea
 const NewTaskLink = styled(Link)`
   font-family: Arial, sans-serif;
   color: #3b82f6;
@@ -28,13 +25,11 @@ const NewTaskLink = styled(Link)`
   }
 `;
 
-// Contenedor para los botones de filtro
 const FilterContainer = styled.div`
   margin-top: 1rem;
   text-align: center;
 `;
 
-// Botón de filtro con estilos dinámicos según la variante
 const FilterButton = styled.button`
   font-size: 16px;
   margin-right: 0.5rem;
@@ -53,12 +48,10 @@ const FilterButton = styled.button`
   }
 `;
 
-// Lista de tareas
 const TaskList = styled.ul`
   margin-top: 1rem;
 `;
 
-// Cada elemento de tarea
 const TaskItem = styled.li`
   padding: 0.5rem;
   border-bottom: 1px solid #e5e7eb; /* Gray claro */
@@ -67,7 +60,6 @@ const TaskItem = styled.li`
   align-items: center;
 `;
 
-// Enlace que muestra el título de la tarea
 const TaskLink = styled(Link)`
   font-size: 20px; 
   font-family: Arial, sans-serif;
@@ -78,7 +70,6 @@ const TaskLink = styled(Link)`
   }
 `;
 
-// Botones de acción: alternar completitud y eliminar
 const ActionButton = styled.button`
   font-family: Arial, sans-serif;
   font-size: 20px;

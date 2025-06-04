@@ -3,14 +3,12 @@ import { TaskContext } from "../Context/TaskContext";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-// Contenedor principal
 const Container = styled.div`
   padding: 2rem;
   max-width: 600px;
   margin: 0 auto;
 `;
 
-// Título de la página
 const Title = styled.h1`
   font-family: Arial, sans-serif;
   font-size: 2rem;
@@ -18,13 +16,11 @@ const Title = styled.h1`
   margin-bottom: 1.5rem;
 `;
 
-// Formulario
 const Form = styled.form`
   display: flex;
   flex-direction: column;
 `;
 
-// Input de texto para el título de la tarea
 const Input = styled.input`
   font-family: Arial, sans-serif;
   padding: 0.75rem;
@@ -35,7 +31,6 @@ const Input = styled.input`
   font-family: Arial, sans-serif;
 `;
 
-// TextArea para la descripción de la tarea
 const TextArea = styled.textarea`
   padding: 0.75rem;
   font-size: 1rem;
@@ -46,7 +41,6 @@ const TextArea = styled.textarea`
   font-family: Arial, sans-serif;
 `;
 
-// Botón para enviar el formulario
 const Button = styled.button`
   font-family: Arial, sans-serif;
   padding: 0.75rem;
