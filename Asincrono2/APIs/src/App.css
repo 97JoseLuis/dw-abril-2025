@@ -1,0 +1,74 @@
+/* Estilos generales */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  justify-content: center;
+ }
+
+.App {
+  text-align: center;
+  padding: 20px;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+.container {
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 800px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  color: #333;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 250px;
+  overflow: hidden;
+  background-color: #fafafa;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 10px;
+  text-align: left;
+}
+
+.card-body h3 {
+  font-size: 1.1rem;
+  margin: 5px 0;
+}
+
+.card-body p {
+  font-size: 0.9rem;
+  margin: 4px 0;
+}
+
