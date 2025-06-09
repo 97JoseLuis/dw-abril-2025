@@ -2,35 +2,56 @@ const express = require('express');
 const router = express.Router();
 const Producto = require('../models/Producto');
 
-// GET todos
+// GET /productos
 router.get('/', async (req, res) => {
   const productos = await Producto.find();
   res.json(productos);
 });
 
-// GET uno
+// GET /productos/:id
 router.get('/:id', async (req, res) => {
-  const producto = await Producto.findById(req.params.id);
-  res.json(producto);
+  try {
+    const producto = await Producto.findById(req.params.id);
+    if (!producto) return res.status(404).json({ error: 'No encontrado' });
+    res.json(producto);
+  } catch {
+    res.status(400).json({ error: 'ID inválido' });
+  }
 });
 
-// POST
+// POST /productos
 router.post('/', async (req, res) => {
-  const nuevo = new Producto(req.body);
-  const saved = await nuevo.save();
-  res.json(saved);
+  try {
+    const nuevoProducto = new Producto(req.body);
+    const productoGuardado = await nuevoProducto.save();
+    res.status(201).json(productoGuardado);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
 
-// PUT
+// PUT /productos/:id
 router.put('/:id', async (req, res) => {
-  const actualizado = await Producto.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  res.json(actualizado);
+  try {
+    const productoActualizado = await Producto.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(productoActualizado);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
 
-// DELETE
+// DELETE /productos/:id
 router.delete('/:id', async (req, res) => {
-  await Producto.findByIdAndDelete(req.params.id);
-  res.json({ message: 'Producto eliminado' });
+  try {
+    await Producto.findByIdAndDelete(req.params.id);
+    res.json({ mensaje: 'Producto eliminado' });
+  } catch {
+    res.status(400).json({ error: 'Error al eliminar' });
+  }
 });
 
 module.exports = router;

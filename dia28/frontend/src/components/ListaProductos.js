@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-function ListaProductos({ onEdit, onShow }) {
-  const [productos, setProductos] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:5000/productos')
-      .then(res => setProductos(res.data));
-  }, []);
-
-  const eliminar = (id) => {
-    axios.delete(`http://localhost:5000/productos/${id}`)
-      .then(() => setProductos(productos.filter(p => p._id !== id)));
-  };
-
+function ListaProductos({ productos, onEliminar, onEditar, onMostrar }) {
   return (
     <div>
       <h2>Lista de Productos</h2>
-      {productos.map(p => (
-        <div key={p._id}>
-          <strong>{p.nombre}</strong> - ${p.precio} - Stock: {p.stock}
-          <button onClick={() => onShow(p._id)}>Mostrar</button>
-          <button onClick={() => onEdit(p)}>Editar</button>
-          <button onClick={() => eliminar(p._id)}>Eliminar</button>
-        </div>
-      ))}
+      <ul>
+        {productos.map((producto) => (
+          <li key={producto._id}>
+            <strong>{producto.nombre}</strong> - ${producto.precio} - Stock: {producto.stock}
+            <button onClick={() => onMostrar(producto._id)}>Mostrar</button>
+            <button onClick={() => onEditar(producto)}>Editar</button>
+            <button onClick={() => onEliminar(producto._id)}>Eliminar</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

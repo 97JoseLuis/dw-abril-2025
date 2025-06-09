@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function MostrarProducto({ id }) {
+function ObtenerProductos({ id }) {
   const [producto, setProducto] = useState(null);
 
   useEffect(() => {
@@ -22,4 +22,4 @@ function MostrarProducto({ id }) {
   );
 }
 
-export default MostrarProducto;
+export default ObtenerProductos;
