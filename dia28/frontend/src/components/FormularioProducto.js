@@ -27,7 +27,7 @@ function FormularioProducto({ onSubmit, productoEdit, setModoEdicion }) {
     }
 
     const payload = {
-      ...producto,
+      producto,
       precio: parseFloat(producto.precio),
       stock: parseInt(producto.stock),
     };
