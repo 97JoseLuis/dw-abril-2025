@@ -14,7 +14,7 @@ export default function Header() {
           <li><Link href="/blog">Blog</Link></li>
         </ul>
       </nav>
-      <p style={{ marginTop: '0.5rem', color: 'gray' }}>
+      <p style={{ marginTop: '0.5rem', color: 'black' }}>
         Ruta actual: <strong>{currentPath}</strong>
       </p>
     </header>
