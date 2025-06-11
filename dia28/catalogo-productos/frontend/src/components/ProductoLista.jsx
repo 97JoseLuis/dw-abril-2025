@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const ProductoLista = () => {
@@ -8,7 +8,8 @@ const ProductoLista = () => {
     useEffect(() => {
         const fetchProductos = async () => {
             try {
-                const response = await axios.get('/productos');
+                const response = await axios.get('http://localhost:5000/productos');
+                console.log(response.data);
                 setProductos(response.data);
             } catch (err) {
                 setError('Error al cargar los productos');
