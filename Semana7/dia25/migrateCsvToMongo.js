@@ -31,7 +31,6 @@ async function migrate() {
         await client.connect();
         const db = client.db(DB_NAME);
 
-        // Migrar persons.csv
         const persons = await readCSV('./src/data/persons.csv');
         if (persons.length > 0) {
             await db.collection('persons').deleteMany({});
@@ -39,7 +38,6 @@ async function migrate() {
             console.log(`Migrados ${persons.length} persons`);
         }
 
-        // Migrar classrooms.csv
         const classrooms = await readCSV('./src/data/classrooms.csv', true);
         if (classrooms.length > 0) {
             await db.collection('classrooms').deleteMany({});
