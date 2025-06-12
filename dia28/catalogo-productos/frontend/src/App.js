@@ -3,12 +3,14 @@ import ProductoLista from './components/ProductoLista';
 import ProductoDetalle from './components/ProductoDetalle';
 import ProductoFormNuevo from './components/ProductoFormNuevo';
 import ProductoFormEditar from './components/ProductoFormEditar';
+import Header from './components/header';
 import './styles/main.css';
 
 function App() {
   return (
     <Router>
       <div className="App">
+        <Header />
         <Switch>
           <Route path="/" exact component={ProductoLista} />
           <Route path="/producto/nuevo" component={ProductoFormNuevo} />

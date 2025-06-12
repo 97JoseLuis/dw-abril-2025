@@ -21,7 +21,7 @@ const ProductoLista = () => {
 
     const handleEliminar = async (id) => {
         try {
-            await axios.delete(`/productos/${id}`);
+            await axios.delete(`http://localhost:5000/productos/${id}`);
             setProductos(productos.filter(producto => producto._id !== id));
         } catch (err) {
             setError('Error al eliminar el producto');

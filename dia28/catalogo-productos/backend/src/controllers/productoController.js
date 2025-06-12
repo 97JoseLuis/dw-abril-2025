@@ -45,6 +45,7 @@ exports.crearProducto = async (req, res) => {
 
 // Actualizar un producto
 exports.actualizarProducto = async (req, res) => {
+    console.log('PUT /productos/:id', req.params.id, req.body); // <-- Agrega esto
     try {
         const productoActualizado = await Producto.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!productoActualizado) {
@@ -55,7 +56,6 @@ exports.actualizarProducto = async (req, res) => {
         res.status(400).json({ mensaje: 'Error al actualizar el producto', error });
     }
 };
-
 // Eliminar un producto
 exports.eliminarProducto = async (req, res) => {
     try {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 const ProductoFormNuevo = () => {
@@ -20,7 +20,7 @@ const ProductoFormNuevo = () => {
         }
 
         try {
-            await axios.post('/productos', {
+            await axios.post('http://localhost:5000/productos', {
                 nombre,
                 descripcion,
                 precio,

@@ -32,14 +32,18 @@ const ProductoFormEditar = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await api.put(`/productos/${id}`, producto);
-            history.push('/productos');
-        } catch (err) {
-            setError('Error al actualizar el producto');
-        }
-    };
+    e.preventDefault();
+    try {
+        await api.put(`/productos/${id}`, {
+            ...producto,
+            precio: Number(producto.precio),
+            stock: Number(producto.stock)
+        });
+        history.push('/'); // Cambia la ruta si tu lista está en "/"
+    } catch (err) {
+        setError(err.response?.data?.error || 'Error al actualizar el producto');
+    }
+    }
 
     return (
         <div>
