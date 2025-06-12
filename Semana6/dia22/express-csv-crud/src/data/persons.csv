@@ -1,0 +1,6 @@
+Id,Name,Surname,IsTeacher,Birthdate
+1,John,Doe,true,1985-06-15
+2,Jane,Smith,false,1990-03-22
+3,Bob,Brown,true,1978-11-30
+4,Alice,Johnson,false,1995-01-05
+5,Charlie,White,true,1982-07-19
