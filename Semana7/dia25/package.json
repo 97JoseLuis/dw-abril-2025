@@ -1,8 +1,7 @@
 {
   "name": "dia25",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^5.1.0",
-    "mongoose": "^8.15.1"
+    "mongoose": "^7.4.0"
   }
-}
+  }
