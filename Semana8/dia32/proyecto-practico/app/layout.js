@@ -20,9 +20,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <h1>Título de la Página Principal</h1>
-        <p>Este es un texto simple en la página principal.</p>
-        {children}
+        <div className="container">
+          <div className="card" style={{ marginTop: 40, marginBottom: 40 }}>
+            <h1 className="title" style={{ marginBottom: 12 }}>
+              Proyecto Práctico con Next.js
+            </h1>
+            <p className="text" style={{ marginBottom: 24 }}>
+              Este es el Proyecto Práctico hecho con esfuerzo y dedicación.
+            </p>
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   );

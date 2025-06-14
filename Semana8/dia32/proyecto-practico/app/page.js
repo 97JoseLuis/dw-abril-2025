@@ -33,7 +33,7 @@ export default function ItemsPage() {
     await fetch(`/api/items/${id}`, {
       method: "DELETE",
     });
-    setItems(items.filter(i => i.id !== id));
+    setItems(items.filter(item => item.id !== id));
   };
 
   // Iniciar edición
@@ -50,45 +50,54 @@ export default function ItemsPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nombre: editNombre }),
     });
-    setItems(items.map(i => i.id === editId ? { ...i, nombre: editNombre } : i));
+    setItems(items.map(item =>
+      item.id === editId ? { ...item, nombre: editNombre } : item
+    ));
     setEditId(null);
     setEditNombre("");
   };
 
   return (
-    <div style={{ maxWidth: 500, margin: "40px auto" }}>
-      <h1>Lista de Items</h1>
-      <form onSubmit={handleAdd} style={{ marginBottom: 20 }}>
-        <input
-          value={nombre}
-          onChange={e => setNombre(e.target.value)}
-          placeholder="Nuevo item"
-        />
-        <button type="submit">Añadir</button>
-      </form>
-      <ul>
-        {items.map(item =>
-          <li key={item.id} style={{ marginBottom: 10 }}>
-            {editId === item.id ? (
-              <form onSubmit={handleEdit} style={{ display: "inline" }}>
-                <input
-                  value={editNombre}
-                  onChange={e => setEditNombre(e.target.value)}
-                  autoFocus
-                />
-                <button type="submit">Guardar</button>
-                <button type="button" onClick={() => setEditId(null)}>Cancelar</button>
-              </form>
-            ) : (
-              <>
-                <span>{item.nombre}</span>
-                <button onClick={() => startEdit(item)} style={{ marginLeft: 10 }}>Editar</button>
-                <button onClick={() => handleDelete(item.id)} style={{ marginLeft: 5 }}>Eliminar</button>
-              </>
-            )}
-          </li>
-        )}
-      </ul>
+    <div className="container">
+      <div className="card">
+        <h2 className="title">Lista de Items</h2>
+        <p className="text">Agrega, edita o elimina tus items fácilmente.</p>
+        <form onSubmit={handleAdd} style={{ marginBottom: 24 }}>
+          <input
+            value={nombre}
+            onChange={e => setNombre(e.target.value)}
+            placeholder="Nuevo item"
+            className="text"
+            style={{ padding: 8, borderRadius: 8, border: "1px solid #ccc", marginRight: 8 }}
+          />
+          <button type="submit" className="button">Añadir</button>
+        </form>
+        <ul>
+          {items.map(item =>
+            <li key={item.id} style={{ marginBottom: 10 }}>
+              {editId === item.id ? (
+                <form onSubmit={handleEdit} style={{ display: "inline" }}>
+                  <input
+                    value={editNombre}
+                    onChange={e => setEditNombre(e.target.value)}
+                    autoFocus
+                    className="text"
+                    style={{ padding: 6, borderRadius: 8, border: "1px solid #ccc", marginRight: 8 }}
+                  />
+                  <button type="submit" className="button" style={{ marginRight: 6 }}>Guardar</button>
+                  <button type="button" className="button" onClick={() => setEditId(null)}>Cancelar</button>
+                </form>
+              ) : (
+                <>
+                  <span className="text">{item.nombre}</span>
+                  <button onClick={() => startEdit(item)} className="button" style={{ marginLeft: 10 }}>Editar</button>
+                  <button onClick={() => handleDelete(item.id)} className="button" style={{ marginLeft: 5, background: "#ef4444" }}>Eliminar</button>
+                </>
+              )}
+            </li>
+          )}
+        </ul>
+      </div>
     </div>
   );
 }
