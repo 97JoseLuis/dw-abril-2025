@@ -1,43 +1,62 @@
-let items = [
-  { id: 1, nombre: "Item 1" },
-  { id: 2, nombre: "Item 2" },
-];
+import { connectDB } from "./db";
+import Item from "./item.model";
 
 // GET /api/items
 export async function GET() {
-  return Response.json(items);
+  try {
+    await connectDB();
+    const items = await Item.find();
+    return Response.json(items);
+  } catch (error) {
+    return Response.json({ error: "Error al obtener los items" }, { status: 500 });
+  }
 }
 
 // POST /api/items
 export async function POST(request) {
-  const data = await request.json();
-  const nuevo = {
-    id: items.length ? Math.max(...items.map(i => i.id)) + 1 : 1,
-    nombre: data.nombre || "Sin nombre",
-  };
-  items.push(nuevo);
-  return Response.json(nuevo, { status: 201 });
+  try {
+    await connectDB();
+    const data = await request.json();
+    if (!data.nombre || typeof data.nombre !== "string" || !data.nombre.trim()) {
+      return Response.json({ error: "El campo 'nombre' es obligatorio y debe ser texto." }, { status: 400 });
+    }
+    const nuevo = await Item.create({ nombre: data.nombre.trim() });
+    return Response.json(nuevo, { status: 201 });
+  } catch (error) {
+    return Response.json({ error: "Error al crear el item" }, { status: 500 });
+  }
 }
 
-// PUT /api/items
+// PUT /api/items/:id
 export async function PUT(request, { params }) {
-  const id = parseInt(params.id);
-  const data = await request.json();
-  const idx = items.findIndex(i => i.id === id);
-  if (idx === -1) {
-    return Response.json({ error: "No encontrado" }, { status: 404 });
+  try {
+    await connectDB();
+    const id = params.id;
+    const data = await request.json();
+    if (!data.nombre || typeof data.nombre !== "string" || !data.nombre.trim()) {
+      return Response.json({ error: "El campo 'nombre' es obligatorio y debe ser texto." }, { status:400 });
+    }
+    const actualizado = await Item.findByIdAndUpdate(id, { nombre: data.nombre.trim() }, { new: true });
+    if (!actualizado) {
+      return Response.json({ error: "No encontrado" }, { status: 404 });
+    }
+    return Response.json(actualizado);
+  } catch (error) {
+    return Response.json({ error: "Error al actualizar el item" }, { status: 500 });
   }
-  items[idx] = { ...items[idx], ...data };
-  return Response.json(items[idx]);
 }
 
-// DELETE /api/items
+// DELETE /api/items/:id
 export async function DELETE(request, { params }) {
-  const id = parseInt(params.id);
-  const idx = items.findIndex(i => i.id === id);
-  if (idx === -1) {
-    return Response.json({ error: "No encontrado" }, { status: 404 });
+  try {
+    await connectDB();
+    const id = params.id;
+    const eliminado = await Item.findByIdAndDelete(id);
+    if (!eliminado) {
+      return Response.json({ error: "No encontrado" }, { status: 404 });
+    }
+    return Response.json(eliminado);
+  } catch (error) {
+    return Response.json({ error: "Error al eliminar el item" }, { status: 500 });
   }
-  const eliminado = items.splice(idx, 1)[0];
-  return Response.json(eliminado);
 }

@@ -1,6 +1,3 @@
-/* Puedes usar este CSS en app/globals.css o como base para otro archivo */
-
-/* Paleta de colores moderna */
 :root {
   --primary: #6366f1;
   --secondary: #f472b6;
@@ -72,6 +69,7 @@ a:hover {
   margin-bottom: 16px;
   background: linear-gradient(90deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
