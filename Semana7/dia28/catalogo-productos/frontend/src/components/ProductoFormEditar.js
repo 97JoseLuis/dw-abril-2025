@@ -17,8 +17,8 @@ const ProductoFormEditar = () => {
     useEffect(() => {
         const fetchProducto = async () => {
             try {
-                const response = await api.get(`/productos/${id}`);
-                setProducto(response.data);
+                const data = await api.obtenerProducto(id);
+                setProducto(data);
             } catch (err) {
                 setError('Error al obtener el producto');
             }
@@ -34,22 +34,22 @@ const ProductoFormEditar = () => {
     const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        await api.put(`/productos/${id}`, {
+        await api.actualizarProducto(id, {
             ...producto,
             precio: Number(producto.precio),
             stock: Number(producto.stock)
         });
         history.push('/'); // Cambia la ruta si tu lista está en "/"
     } catch (err) {
-        setError(err.response?.data?.error || 'Error al actualizar el producto');
+        setError(err.message || 'Error al actualizar el producto');
     }
     }
 
     return (
-        <div>
+        <div className="container">
             <h2>Editar Producto</h2>
-            {error && <p>{error}</p>}
-            <form onSubmit={handleSubmit}>
+            {error && <p className="error">{error}</p>}
+            <form className="product-form" onSubmit={handleSubmit}>
                 <div>
                     <label>Nombre:</label>
                     <input type="text" name="nombre" value={producto.nombre} onChange={handleChange} required />

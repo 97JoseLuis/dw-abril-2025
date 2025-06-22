@@ -40,7 +40,7 @@ const ProductoFormNuevo = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="product-form" onSubmit={handleSubmit}>
             <h2>Agregar Nuevo Producto</h2>
             {error && <p className="error">{error}</p>}
             <div>

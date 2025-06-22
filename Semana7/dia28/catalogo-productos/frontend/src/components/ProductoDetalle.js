@@ -11,7 +11,7 @@ const ProductoDetalle = () => {
     useEffect(() => {
         const fetchProducto = async () => {
             try {
-                const response = await axios.get(`/productos/${id}`);
+                const response = await axios.get(`http://localhost:5000/productos/${id}`);
                 setProducto(response.data);
             } catch (err) {
                 setError('Error al obtener el producto');
@@ -39,15 +39,15 @@ const ProductoDetalle = () => {
     }
 
     return (
-        <div>
+        <div className="container product-detail">
             <h2>{producto.nombre}</h2>
             <p>{producto.descripcion}</p>
             <p>Precio: ${producto.precio}</p>
             <p>Stock: {producto.stock}</p>
             <p>Categoría: {producto.categoria}</p>
             <p>Fecha de Creación: {new Date(producto.fechaCreacion).toLocaleDateString()}</p>
-            <button onClick={handleDelete}>Eliminar Producto</button>
-            <button onClick={() => history.push(`/editar/${id}`)}>Editar Producto</button>
+            <button className="btn btn-danger" onClick={handleDelete}>Eliminar Producto</button>
+            <button className="btn btn-edit" onClick={() => history.push(`/producto/editar/${id}`)}>Editar Producto</button>
         </div>
     );
 };

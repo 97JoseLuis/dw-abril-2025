@@ -12,6 +12,7 @@ exports.obtenerProductos = async (req, res) => {
 
 // Obtener un producto por ID
 exports.obtenerProducto = async (req, res) => {
+    console.log('Buscando producto con ID:', req.params.id); // <-- Agrega esto
     try {
         const producto = await Producto.findById(req.params.id);
         if (!producto) {
