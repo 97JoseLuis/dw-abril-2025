@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-/// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client-js"
@@ -10,11 +10,12 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("mongodb+srv://joseluisql19973:QjaxGgtlla4gf7QR@cluster0.qsoectf.mongodb.net/
-")
+  url      = env("DATABASE_URL")
 }
 
-model Item {
-  id    String @id @default(auto()) @map("_id") @test.ObjectId
-  nombre String
+model User {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  email    String @unique
+  password String
 }
