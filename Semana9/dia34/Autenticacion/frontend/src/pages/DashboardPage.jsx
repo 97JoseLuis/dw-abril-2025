@@ -1,4 +1,4 @@
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 export default function DashboardPage() {
   const token = localStorage.getItem('token');

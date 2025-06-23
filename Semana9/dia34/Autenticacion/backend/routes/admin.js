@@ -1,58 +1,57 @@
 const express = require('express');
 const User = require('../models/User');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-
+const jwt = require('jsonwebtoken');
 const router = express.Router();
+
 const SECRET = process.env.JWT_SECRET;
 
-// Middleware para auth
-function authMiddleware(req, res, next) {
-  const token = req.headers.authorization?.split(' ')[1];
-  if (!token) return res.status(401).json({ message: 'No token' });
+// Middleware para verificar token y admin
+function requireAdmin(req, res, next) {
+  const auth = req.headers.authorization;
+  if (!auth) return res.status(401).json({ message: 'No token' });
   try {
-    const decoded = jwt.verify(token, SECRET);
-    req.user = decoded;
+    const token = auth.split(' ')[1];
+    const payload = jwt.verify(token, SECRET);
+    if (!payload.isAdmin) return res.status(403).json({ message: 'Solo admin' });
+    req.user = payload;
     next();
   } catch {
     return res.status(401).json({ message: 'Token inválido' });
   }
 }
 
-// Middleware admin
-function adminMiddleware(req, res, next) {
-  if (!req.user.isAdmin) return res.status(403).json({ message: 'Acceso denegado' });
-  next();
-}
-
-// GET /api/admin/users - lista usuarios
-router.get('/users', authMiddleware, adminMiddleware, async (req, res) => {
+// Obtener todos los usuarios
+router.get('/users', requireAdmin, async (req, res) => {
   const users = await User.find({}, '-password');
   res.json(users);
 });
 
-// POST /api/admin/users - crear usuario
-router.post('/users', authMiddleware, adminMiddleware, async (req, res) => {
+// Crear usuario
+router.post('/users', requireAdmin, async (req, res) => {
   const { email, password, isAdmin } = req.body;
+  if (!email || !password) return res.status(400).json({ message: 'Email y contraseña requeridos' });
+  const existing = await User.findOne({ email });
+  if (existing) return res.status(400).json({ message: 'El usuario ya existe' });
   const hashed = await bcrypt.hash(password, 10);
-  const user = new User({ email, password: hashed, isAdmin });
+  const user = new User({ email, password: hashed, isAdmin: !!isAdmin });
   await user.save();
-  res.status(201).json({ message: 'Usuario creado' });
+  res.status(201).json({ message: 'Usuario creado correctamente' });
 });
 
-// PUT /api/admin/users/:id - editar usuario
-router.put('/users/:id', authMiddleware, adminMiddleware, async (req, res) => {
+// Actualizar usuario
+router.put('/users/:id', requireAdmin, async (req, res) => {
   const { email, password, isAdmin } = req.body;
-  const updateData = { email, isAdmin };
-  if (password) updateData.password = await bcrypt.hash(password, 10);
-  await User.findByIdAndUpdate(req.params.id, updateData);
+  const update = { email, isAdmin: !!isAdmin };
+  if (password) update.password = await bcrypt.hash(password, 10);
+  await User.findByIdAndUpdate(req.params.id, update);
   res.json({ message: 'Usuario actualizado' });
 });
 
-// DELETE /api/admin/users/:id - borrar usuario
-router.delete('/users/:id', authMiddleware, adminMiddleware, async (req, res) => {
+// Borrar usuario
+router.delete('/users/:id', requireAdmin, async (req, res) => {
   await User.findByIdAndDelete(req.params.id);
-  res.json({ message: 'Usuario borrado' });
+  res.json({ message: 'Usuario eliminado' });
 });
 
 module.exports = router;

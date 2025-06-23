@@ -9,7 +9,7 @@ export default function LoginPage() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const res = await fetch('http://localhost:3001/api/login', {
+    const res = await fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -30,6 +30,7 @@ export default function LoginPage() {
       <input type="email" placeholder="Email" onChange={e => setEmail(e.target.value)} required />
       <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} required />
       <button type="submit">Entrar</button>
+      <a href="/register">¿No tienes cuenta? Regístrate</a>
     </form>
   );
 }
