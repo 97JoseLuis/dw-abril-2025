@@ -28,12 +28,13 @@ const RegisterPage = () => {
     }
 
     try {
-      // 👇 Cambiamos axios por api, sin cabeceras manuales
       const response = await api.post('/auth/register', { username, email, password });
+      localStorage.setItem('token', response.data.token);
       dispatch(login(response.data.token));
-      navigate('/ruta-deseada');
+      navigate('/');
     } catch (error) {
-      console.error('Error al registrarse', error);
+      const msg = error.response?.data?.error || 'Error al registrarse';
+      setErrors({ general: msg });
     }
   };
 

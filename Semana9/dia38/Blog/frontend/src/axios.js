@@ -11,8 +11,10 @@ api.interceptors.request.use((config) => {
 
   const esRutaPrivada = !rutasPublicas.some((ruta) => config.url.includes(ruta));
   
-  if (token && esRutaPrivada) {
+  if (token && esRutaPrivada && token.split('.').length === 3) {
     config.headers['x-auth-token'] = token;
+  } else {
+    delete config.headers['x-auth-token'];
   }
 
   return config;

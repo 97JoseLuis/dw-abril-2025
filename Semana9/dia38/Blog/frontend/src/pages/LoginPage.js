@@ -22,11 +22,12 @@ const LoginPage = () => {
 
     try {
       const response = await api.post('/auth/login', { email, password });
+      localStorage.setItem('token', response.data.token);
       dispatch(login(response.data.token));
-      navigate('/ruta-protegida'); // actualiza con la ruta real
+      navigate('/'); // Redirige a la página principal después de login
     } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      setErrorMsg('Credenciales incorrectas o error del servidor');
+      const msg = error.response?.data?.error || 'Credenciales incorrectas o error del servidor';
+      setErrorMsg(msg);
     }
   };
 

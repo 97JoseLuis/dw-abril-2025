@@ -28,7 +28,7 @@ const CreatePostPage = () => {
         { title, content, image },
         { headers: { 'x-auth-token': token } }
       );
-    navigate('/home');
+    navigate('/');
     } catch (error) {
       console.error('Error al crear la publicación', error);
     }
