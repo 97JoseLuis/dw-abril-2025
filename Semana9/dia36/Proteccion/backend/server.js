@@ -21,5 +21,9 @@ mongoose.connect(process.env.MONGODB_URI, {
 app.use('/api', authRoutes);
 app.use('/api/admin', adminRoutes);
 
+app.get('/', (req, res) => {
+  res.send('API funcionando correctamente 🚀');
+});
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
