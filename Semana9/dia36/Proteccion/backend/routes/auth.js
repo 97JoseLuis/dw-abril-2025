@@ -6,6 +6,20 @@ const router = express.Router();
 
 const SECRET = process.env.JWT_SECRET;
 
+// Middleware para verificar JWT (no requiere admin)
+function requireAuth(req, res, next) {
+  const auth = req.headers.authorization;
+  if (!auth) return res.status(401).json({ message: 'No token' });
+  try {
+    const token = auth.split(' ')[1];
+    const payload = jwt.verify(token, SECRET);
+    req.user = payload;
+    next();
+  } catch {
+    return res.status(401).json({ message: 'Token inválido' });
+  }
+}
+
 // POST /api/login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -16,7 +30,7 @@ router.post('/login', async (req, res) => {
   if (!valid) return res.status(400).json({ message: 'Contraseña incorrecta' });
 
   const token = jwt.sign(
-    { id: user._id, email: user.email, role: user.role },
+    { id: user._id, email: user.email, isAdmin: user.isAdmin },
     SECRET,
     { expiresIn: '1h' }
   );
@@ -37,6 +51,11 @@ router.post('/register', async (req, res) => {
   await user.save();
 
   res.status(201).json({ message: 'Usuario creado correctamente' });
+});
+
+// GET /api/protected (ruta protegida para pruebas)
+router.get('/protected', requireAuth, (req, res) => {
+  res.json({ message: 'Ruta protegida', user: req.user });
 });
 
 module.exports = router;
