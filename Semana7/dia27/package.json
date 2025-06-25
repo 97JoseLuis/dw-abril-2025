@@ -1,0 +1,29 @@
+{
+  "name": "dia27-mongodb-practica",
+  "version": "1.0.0",
+  "description": "Práctica de MongoDB con filtros, paginación e índices",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "seed": "node scripts/seed-data.js",
+    "test": "node test-queries.js"
+  },
+  "keywords": [
+    "mongodb",
+    "mongoose",
+    "filtros",
+    "paginacion",
+    "indices"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^7.4.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}
