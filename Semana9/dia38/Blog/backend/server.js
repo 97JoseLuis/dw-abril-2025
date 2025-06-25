@@ -2,16 +2,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db'); 
+const cors = require('cors');
 
 dotenv.config();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 const app = express();
 
-connectDB();
-
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
+
+connectDB();
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/posts', require('./routes/posts'));

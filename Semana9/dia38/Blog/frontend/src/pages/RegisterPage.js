@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/actions/authActions';
+import api from '../axios'; // 👈 Usamos la instancia personalizada de Axios
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
@@ -17,7 +17,6 @@ const RegisterPage = () => {
     e.preventDefault();
     let formErrors = {};
 
-    // Validaciones
     if (!username) formErrors.username = 'El nombre de usuario es obligatorio';
     if (!email || !/\S+@\S+\.\S+/.test(email)) formErrors.email = 'Debe ingresar un correo válido';
     if (!password || password.length < 6) formErrors.password = 'La contraseña debe tener al menos 6 caracteres';
@@ -29,7 +28,8 @@ const RegisterPage = () => {
     }
 
     try {
-      const response = await axios.post('/api/auth/register', { username, email, password });
+      // 👇 Cambiamos axios por api, sin cabeceras manuales
+      const response = await api.post('/auth/register', { username, email, password });
       dispatch(login(response.data.token));
       navigate('/ruta-deseada');
     } catch (error) {

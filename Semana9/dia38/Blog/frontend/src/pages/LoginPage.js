@@ -1,44 +1,56 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login, setUser } from '../redux/actions/authActions';
+import { login } from '../redux/actions/authActions';
+import api from '../axios'; // 👈 nuestra instancia personalizada
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+  const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMsg('');
+
+    if (!email || !password) {
+      setErrorMsg('Debes ingresar correo y contraseña');
+      return;
+    }
+
     try {
-      setError(null);
-      const response = await axios.post('/api/auth/login', { email, password });
+      const response = await api.post('/auth/login', { email, password });
       dispatch(login(response.data.token));
-      dispatch(setUser(response.data.user));
-      navigate('/');
+      navigate('/ruta-protegida'); // actualiza con la ruta real
     } catch (error) {
-      setError('Credenciales incorrectas o error de servidor.');
-      console.error('Error al iniciar sesión', error);
+      console.error('Error al iniciar sesión:', error);
+      setErrorMsg('Credenciales incorrectas o error del servidor');
     }
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '40px auto', background: '#fff', padding: '32px', borderRadius: '12px', boxShadow: '0 2px 12px rgba(34,34,59,0.07)' }}>
-      <h2 style={{ textAlign: 'center', marginBottom: '24px' }}>Iniciar sesión</h2>
-      {error && <div className="error">{error}</div>}
+    <div>
+      <h2>Iniciar Sesión</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Correo</label>
-        <input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Correo" required />
-        <label htmlFor="password">Contraseña</label>
-        <input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Contraseña" required />
-        <button type="submit" style={{ width: '100%', marginTop: '12px' }}>Iniciar sesión</button>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Correo electrónico"
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Contraseña"
+        />
+        {errorMsg && <p className="error">{errorMsg}</p>}
+        <button type="submit">Entrar</button>
       </form>
     </div>
-  ); 
+  );
 };
 
 export default LoginPage;
-                  

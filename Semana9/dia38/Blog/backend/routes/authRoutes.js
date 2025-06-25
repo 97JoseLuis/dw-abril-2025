@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 
 // Registro
-app.post('/register', async (req, res) => {
+app.post('/api/auth/register', async (req, res) => {
     const { username, email, password } = req.body;
 
     const salt = await bcrypt.genSalt(10);
@@ -24,7 +24,7 @@ app.post('/register', async (req, res) => {
 });
 
 // Login
-app.post('/login', async (req, res) => {
+app.post('/api/auth/login', async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
